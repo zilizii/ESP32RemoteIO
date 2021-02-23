@@ -25,6 +25,7 @@
 #include "driver/rmt.h"
 #include "driver/periph_ctrl.h"
 #include "soc/rmt_reg.h"
+#include "cJSON.h"
 
 #ifndef MAIN_ESP32REMOTE_H_
 #define MAIN_ESP32REMOTE_H_
@@ -125,6 +126,7 @@ protected:
 	std::vector<ProtocolCommands_t> _commands;
 public:
 	BaseRMTClass(ProtocolData_t *Protocol) : _data(Protocol) {};
+
 	std::string getName()
 	{
 		if(this->_data != NULL)
@@ -153,6 +155,7 @@ public:
 //	virtual bool SendCommand(std::string command) = 0;
 //	virtual bool SendCommand(ProtocolCommands_t command) = 0;
 	ProtocolCommands_t * GetCommand(std::string command);
+	virtual cJSON * GetJSONOut();
 };
 
 class PulseDistanceCoding : public BaseRMTClass {
@@ -175,7 +178,7 @@ public:
 	void GenerateOutput(rmt_item32_t* item, uint address, uint data);
 	void GenerateOutput(rmt_item32_t* item, std::string ProtocolCommandName);
 	void GenerateOutPutRaw(rmt_item32_t* item, uint data);
-
+	cJSON * GetJSONOut();
 };
 
 

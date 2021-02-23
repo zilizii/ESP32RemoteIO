@@ -19,6 +19,7 @@
 #include "driver/rmt.h"
 #include "driver/periph_ctrl.h"
 #include "soc/rmt_reg.h"
+#include "cJSON.h"
 
 #include "ESP32Remote.h"
 
@@ -574,6 +575,17 @@ void PulseDistanceCoding::GenerateOutPutRaw(rmt_item32_t* item, uint data) {
 		ESP32_RMT_Tx::generateRMTItem(& item[counter] , this->_data->_stopSignHigh, this->_data->_stopSignLow);
 	}
 	//return
+}
+
+/*
+ * Purpose create a JSON object from the object
+ * IDEA to send over MQTT or store via SDCARD ....
+ * */
+
+cJSON * GetJSONOut() {
+	cJSON * _object = NULL;
+
+	return _object;
 }
 
 
