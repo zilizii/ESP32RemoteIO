@@ -143,8 +143,8 @@ public:
 	};
 
 	virtual ~BaseRMTClass(){};
-	virtual void GenerateOutput(rmt_item32_t* item, uint address, uint data) =0;
-	virtual void GenerateOutput(rmt_item32_t* item, std::string ProtocolCommandName) =0;
+	virtual void GenerateOutput(rmt_item32_t* item, uint address, uint data) = 0;
+	virtual void GenerateOutput(rmt_item32_t* item, std::string ProtocolCommandName) = 0;
 	// just send out the data
 	virtual void GenerateOutPutRaw(rmt_item32_t* item, uint data)=0;
 	virtual bool CheckInput(rmt_item32_t* item) =0;
@@ -155,7 +155,7 @@ public:
 //	virtual bool SendCommand(std::string command) = 0;
 //	virtual bool SendCommand(ProtocolCommands_t command) = 0;
 	ProtocolCommands_t * GetCommand(std::string command);
-	virtual cJSON * GetJSONOut();
+	virtual cJSON * GetJSONOut() = 0;
 };
 
 class PulseDistanceCoding : public BaseRMTClass {

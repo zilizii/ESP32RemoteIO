@@ -582,8 +582,29 @@ void PulseDistanceCoding::GenerateOutPutRaw(rmt_item32_t* item, uint data) {
  * IDEA to send over MQTT or store via SDCARD ....
  * */
 
-cJSON * GetJSONOut() {
+cJSON * PulseDistanceCoding::GetJSONOut() {
 	cJSON * _object = NULL;
+	cJSON * _data = NULL;
+	_object = cJSON_CreateObject();
+	cJSON_AddItemToObject(_object, "name", cJSON_CreateString(this->_data->_name.c_str()));
+	cJSON_AddItemToObject(_object, "type", cJSON_CreateString("PulseDistanceCoding"));
+	cJSON_AddItemToObject(_object, "format", _data = cJSON_CreateObject());
+
+
+	cJSON_AddNumberToObject(_data, "headerHigh", this->_data->_headerHigh);
+	cJSON_AddNumberToObject(_data, "headerLow", this->_data->_headerLow);
+	cJSON_AddNumberToObject(_data, "length", this->_data->_length);
+	cJSON_AddNumberToObject(_data, "hightTimeHigh", this->_data->_highTimeHigh);
+	cJSON_AddNumberToObject(_data, "hightTimeLow", this->_data->_highTimeLow);
+	cJSON_AddNumberToObject(_data, "lowTimeHigh", this->_data->_lowTimeHigh);
+	cJSON_AddNumberToObject(_data, "lowTimeLow", this->_data->_lowTimeLow);
+	if( this->_data->_isAddress) {
+		cJSON_AddTrueToObject(_data, "isAddress");
+	}else{
+		cJSON_AddFalseToObject(_data, "isAddress");
+	}
+	cJSON_AddNumberToObject(_data, "addressLength", this->_data->_addressLength);
+
 
 	return _object;
 }
