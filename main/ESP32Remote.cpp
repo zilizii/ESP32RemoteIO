@@ -582,6 +582,29 @@ void PulseDistanceCoding::GenerateOutPutRaw(rmt_item32_t* item, uint data) {
  * IDEA to send over MQTT or store via SDCARD ....
  * */
 
+/*	std::string _name;
+
+	uint _headerHigh;
+	uint _headerLow;
+
+	// 8 bit + 8bit reverse + 8bit command + 8bit inverse of bit
+	uint _length; // NEC = 32 bit long
+
+	bool _isAddress;
+	uint _addressLength;  // length of the address 8 bit in NEC
+	bool _isInvertedAddressRequired;
+
+	uint _highTimeHigh;    //High pulse high Time
+	uint _highTimeLow; //High pulse low Time
+	uint _lowTimeHigh;	   //Low pulse high Time
+	uint _lowTimeLow; //Low pulse low Time
+
+	bool _isDataInverseAddedRequired;
+	uint _tolerance;
+	bool _isStop;
+	uint _stopSignHigh;
+	uint _stopSignLow;
+*/
 cJSON * PulseDistanceCoding::GetJSONOut() {
 	cJSON * _object = NULL;
 	cJSON * _data = NULL;
@@ -604,7 +627,19 @@ cJSON * PulseDistanceCoding::GetJSONOut() {
 		cJSON_AddFalseToObject(_data, "isAddress");
 	}
 	cJSON_AddNumberToObject(_data, "addressLength", this->_data->_addressLength);
-
+	if( this->_data->_isInvertedAddressRequired) {
+			cJSON_AddTrueToObject(_data, "isInvertedAddressRequired");
+		}else{
+			cJSON_AddFalseToObject(_data, "isInvertedAddressRequired");
+		}
+	cJSON_AddNumberToObject(_data, "tolerance", this->_data->_tolerance);
+	if( this->_data->_isStop) {
+				cJSON_AddTrueToObject(_data, "isStop");
+			}else{
+				cJSON_AddFalseToObject(_data, "isStop");
+			}
+	cJSON_AddNumberToObject(_data, "stopSignHigh", this->_data->_stopSignHigh);
+	cJSON_AddNumberToObject(_data, "stopSignLow", this->_data->_stopSignLow);
 
 	return _object;
 }
